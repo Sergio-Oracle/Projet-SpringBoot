@@ -7,4 +7,4 @@ Ce projet est une application de gestion de bibliothèque comprenant :
 
 ## Prérequis
 - Java 17+
-- Node.js 18+
+- Node.js 20+
