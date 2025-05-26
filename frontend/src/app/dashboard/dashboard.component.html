@@ -1,0 +1,75 @@
+<!-- src/app/dashboard/dashboard.component.html -->
+<div class="container">
+  <h2>Tableau de bord</h2>
+
+  <!-- Formulaire pour ajouter un livre (admin uniquement) -->
+  <div class="card">
+    <div class="card-header">Ajouter un livre</div>
+    <div class="card-body">
+      <form (ngSubmit)="createLivre()">
+        <div class="form-group">
+          <label for="titre">Titre</label>
+          <input type="text" class="form-control" id="titre" [(ngModel)]="newLivre.titre" name="titre" required>
+        </div>
+        <div class="form-group">
+          <label for="auteur">Auteur</label>
+          <input type="text" class="form-control" id="auteur" [(ngModel)]="newLivre.auteur" name="auteur" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Ajouter</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Formulaire pour emprunter un livre -->
+  <div class="card">
+    <div class="card-header">Emprunter un livre</div>
+    <div class="card-body">
+      <form (ngSubmit)="createEmprunt()">
+        <div class="form-group">
+          <label for="idLivre">Livre</label>
+          <select class="form-control" id="idLivre" [(ngModel)]="newEmprunt.idLivre" name="idLivre" required>
+            <option *ngFor="let livre of livres" [value]="livre.id" [disabled]="!livre.disponible">{{ livre.titre }}</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Emprunter</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Liste des emprunts -->
+  <div class="card">
+    <div class="card-header">Mes emprunts</div>
+    <div class="card-body">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Livre</th>
+            <th>Date d'emprunt</th>
+            <th>Date de retour</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let emprunt of emprunts">
+            <td>{{ getLivreTitre(emprunt.idLivre) }}</td> <!-- Utiliser la méthode -->
+            <td>{{ emprunt.dateEmprunt }}</td>
+            <td>{{ emprunt.dateRetour || 'Non retourné' }}</td>
+            <td>
+              <button *ngIf="!emprunt.dateRetour" class="btn btn-success" (click)="retournerEmprunt(emprunt.id)">Retourner</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Messages d'erreur -->
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Bouton de déconnexion -->
+  <div class="d-flex">
+    <button class="btn btn-danger" (click)="logout()">Déconnexion</button>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="container">
+  <h2>Inscription</h2>
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="fullName">Nom complet</label>
+      <input type="text" class="form-control" id="fullName" [(ngModel)]="registerData.fullName" name="fullName" required>
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" class="form-control" id="email" [(ngModel)]="registerData.email" name="email" required>
+    </div>
+    <div class="form-group">
+      <label for="password">Mot de passe</label>
+      <input type="password" class="form-control" id="password" [(ngModel)]="registerData.password" name="password" required>
+    </div>
+    <div class="form-group">
+      <label for="role">Rôle</label>
+      <select class="form-control" id="role" [(ngModel)]="registerData.role" name="role">
+        <option value="USER">Utilisateur</option>
+        <option value="ADMIN">Administrateur</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">S'inscrire</button>
+    <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+      {{ errorMessage }}
+    </div>
+  </form>
+  <p class="text-center mt-3">
+    Déjà un compte ? <a href="/login">Se connecter</a>
+  </p>
+</div>
